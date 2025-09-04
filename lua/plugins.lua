@@ -20,11 +20,23 @@ require("lazy").setup({
     {
         "rebelot/kanagawa.nvim",
         config = function()
-            vim.cmd.colorscheme("tokyonight-night")
+            -- vim.cmd.colorscheme("tokyonight-night")
         end,
     },
     {
-	"folke/tokyonight.nvim"
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = {
+        theme = "gruvbox",
+        icons_enabled = true,
+        section_separators = { left = "", right = "" },
+        component_separators = { left = "", right = "" },
+      },
+    },
+    },
+    {
+        "folke/tokyonight.nvim"
     },
 
         "windwp/nvim-autopairs",
@@ -32,7 +44,7 @@ require("lazy").setup({
     {
         "ellisonleao/gruvbox.nvim",
         config = function()
-            --vim.cmd.colorscheme("gruvbox")
+             vim.cmd.colorscheme("gruvbox")
             vim.cmd([[
             highlight! PmenuSel guibg=#363646 guifg=#dce8e0
             highlight! Pmenu guibg=NONE guifg=#dcd7ba

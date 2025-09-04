@@ -11,11 +11,14 @@ vim.opt.scrolloff = 10
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
-vim.opt.termguicolors = true
+vim.opt.termguicolors = true --CHANGE THIS LATER 
 vim.g.mapleader = " "
 vim.opt.pumheight = 10 
 vim.o.cursorline = true
 vim.opt.hlsearch = true 
+vim.keymap.set("n", "<leader>o", function()
+  vim.fn.append(vim.fn.line("."), "")
+end, { desc = "Insert blank line below", silent = true })
 vim.keymap.set("n","<esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("v","<leader>d",'"_d',{noremap = true, silent=true})
 vim.keymap.set("n","<leader>dd",'"_dd',{noremap = true, silent=true})
