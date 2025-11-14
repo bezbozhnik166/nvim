@@ -15,12 +15,21 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-
 require("lazy").setup({
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+    },
+    {
+         "catppuccin/nvim"
+    },
     {
         "rebelot/kanagawa.nvim",
         config = function()
-            -- vim.cmd.colorscheme("tokyonight-night")
+           -- vim.cmd.colorscheme("tokyonight-night")
         end,
     },
     {
@@ -28,7 +37,7 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
-        theme = "gruvbox",
+        theme = "catppuccin",
         icons_enabled = true,
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
@@ -44,7 +53,7 @@ require("lazy").setup({
     {
         "ellisonleao/gruvbox.nvim",
         config = function()
-             vim.cmd.colorscheme("gruvbox")
+              vim.cmd.colorscheme("catppuccin-mocha")
             vim.cmd([[
             highlight! PmenuSel guibg=#363646 guifg=#dce8e0
             highlight! Pmenu guibg=NONE guifg=#dcd7ba
@@ -58,7 +67,12 @@ require("lazy").setup({
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {"c", "lua" , "vim", "vimdoc" , "query", "html", "python", "css", "javascript","java","cpp","bash" },
 
+
                 autoinstall = true,
+
+                indent = {
+                    enable = true
+                },
 
                 highlight = {
 
@@ -173,4 +187,27 @@ require("lazy").setup({
 require('nvim-autopairs').setup({
   check_ts = true,  -- Enable Treesitter support for better syntax recognition
 })
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
 
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+require("ibl").setup { indent = { highlight = highlight } }
